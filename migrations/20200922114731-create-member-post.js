@@ -3,7 +3,7 @@ const { sequelize } = require("../models");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('post_tag', {
+    await queryInterface.createTable('member_post', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -13,24 +13,20 @@ module.exports = {
       postId: {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: 'posts',
-          },
+          model: 'posts',
           key: 'id',
         }
       },
-      tagId: {
+      memberId: {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: 'tags',
-          },
+          model: 'users',
           key: 'id',
         }
       },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('post_tag');
+    await queryInterface.dropTable('member_post');
   }
 };
