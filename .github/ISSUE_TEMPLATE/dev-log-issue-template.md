@@ -13,8 +13,8 @@ assignees: ''
 - [x] 동일 포지션 팀원 공유 여부
 
 ### Issue
-- Group: `client`, `server`, `sr` 중 선택
-- Type: `feature`, `request` 중 선택
+- Group: `client`, `server`, `all` 중 선택
+- Type: `feature`, `request`, `sr` 중 선택
 - Detail(해당하는 type에 따라 선택)
   1. feature type
       - `complete(완료)`, `add(추가)`, `update(수정)`, `fix(디버깅)`, `correct(오류 수정)`, `delete(삭제)` 중 선택
