@@ -36,7 +36,7 @@ app.use(
   })
 );
 
-// app.use('/user', usersRouter);
+// app.use('/users', usersRouter);
 // app.use('/posts', postsRouter);
 // app.use('/comments', commentsRouter);
 
