@@ -17,7 +17,7 @@ assignees: ''
 ### Issue
 #### Type: `feature`, `request`, `SR` 중 선택
 1. feature, SR type일 경우
-  - `complete(완료)`, `add(추가)`, `update(수정)`, `fix(디버깅)`, `correct(오류 수정)`, `delete(삭제)` 중 선택
+  - `in progress(진행 중)`, `complete(완료)`, `add(추가)`, `update(수정)`, `fix(디버깅)`, `correct(오류 수정)`, `delete(삭제)` 중 선택
   - 기능 및 위치 등 작성
 2. request type일 경우
   - 문제 발생 지점
