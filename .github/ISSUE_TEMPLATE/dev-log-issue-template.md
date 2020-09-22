@@ -31,4 +31,5 @@ assignees: ''
 - Group: `client`, `server`, `all`
 - Estimated Time: `E: 1h`
 - Consumed Time: `C: 1.5h`
-- Urgency: none(선택 없음), `Urgent`
+- Urgency: none(해당 없음), `Urgent`
+- Bug: none(해당 없음), `Bug`
