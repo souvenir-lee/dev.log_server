@@ -2,7 +2,7 @@
 name: daily log template
 about: daily log template입니다.
 title: ''
-labels: 'G: all, O: documentation'
+labels: 'G: all'
 assignees: parfumes
 
 ---
