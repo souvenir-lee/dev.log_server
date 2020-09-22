@@ -1,8 +1,8 @@
 ---
-name: daily log template
+name: dev.log daily template
 about: daily log template입니다.
 title: "[All] 20. 회의록"
-labels: 'T: documentation, G: all'
+labels: 'G: all, T: documentation'
 assignees: parfumes
 
 ---
