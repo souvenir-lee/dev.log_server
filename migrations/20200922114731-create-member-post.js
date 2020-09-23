@@ -3,7 +3,7 @@ const { sequelize } = require("../models");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('post_tag', {
+    await queryInterface.createTable('member_post', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -21,13 +21,13 @@ module.exports = {
           key: 'id',
         }
       },
-      tagId: {
+      memberId: {
         type: Sequelize.INTEGER,
         constraints: false,
         onDelete: 'cascade',
         references: {
           model: {
-            tableName: 'tags',
+            tableName: 'users',
           },
           key: 'id',
         }
@@ -35,6 +35,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('post_tag');
+    await queryInterface.dropTable('member_post');
   }
 };

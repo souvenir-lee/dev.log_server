@@ -1,26 +1,28 @@
 'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  class social_users extends Model {
+  class tag extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // static associate(models) {
-    //   // define association here
-    // }
+    static associate(models) {
+      // define association here
+      this.belongsToMany(models.post, { through: models.post_tag, constraints: false, onDelete: 'CASCADE' });
+    }
   }
-  social_users.init(
+  tag.init(
     {
-      access_token: DataTypes.STRING,
-      email: DataTypes.STRING,
-      username: DataTypes.STRING,
+      name: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: 'social_users',
+      createdAt: false,
+      updatedAt: false,
+      modelName: 'tag',
     }
   );
-  return social_users;
+  return tag;
 };
