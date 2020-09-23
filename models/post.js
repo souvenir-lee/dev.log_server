@@ -8,8 +8,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.user, { as: 'author', constraints: false, onDelete: 'CASCADE' });
-      this.belongsTo(models.category, { as: 'category', constraints: false, onDelete: 'CASCADE' });
+      this.belongsTo(models.user, {
+        as: 'user',
+        constraints: false,
+        onDelete: 'CASCADE',
+      });
+      this.belongsTo(models.category, {
+        as: 'category',
+        constraints: false,
+        onDelete: 'CASCADE',
+      });
       this.hasMany(models.comment);
       this.belongsToMany(models.tag, { through: models.post_tag });
       this.belongsToMany(models.user, { through: models.member_post });
@@ -19,16 +27,16 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       message: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       view_count: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
-      }
+      },
     },
     {
       sequelize,
