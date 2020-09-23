@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      hoots: {
+      hooks: {
         beforeCreate: (data, options) => {
           let secret = 'dev_log@@';
           let hash = crypto.createHmac('sha256', secret)
