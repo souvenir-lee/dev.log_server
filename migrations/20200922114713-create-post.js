@@ -12,6 +12,8 @@ module.exports = {
       },
       categoryId: {
         type: Sequelize.INTEGER,
+        constraints: false,
+        onDelete: 'cascade',
         references: {
           model: {
             tableName: 'categories',
@@ -21,8 +23,12 @@ module.exports = {
       },
       authorId: {
         type: Sequelize.INTEGER,
+        constraints: false,
+        onDelete: 'cascade',
         references: {
-          model: 'users',
+          model: {
+            tableName: 'users',
+          },
           key: 'id',
         }
       },

@@ -12,6 +12,8 @@ module.exports = {
       },
       postId: {
         type: Sequelize.INTEGER,
+        constraints: false,
+        onDelete: 'cascade',
         references: {
           model: {
             tableName: 'posts',
@@ -21,6 +23,8 @@ module.exports = {
       },
       tagId: {
         type: Sequelize.INTEGER,
+        constraints: false,
+        onDelete: 'cascade',
         references: {
           model: {
             tableName: 'tags',

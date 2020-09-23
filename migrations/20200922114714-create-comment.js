@@ -12,16 +12,23 @@ module.exports = {
       },
       postId: {
         type: Sequelize.INTEGER,
+        constraints: false,
         onDelete: 'cascade',
         references: {
-          model: 'posts',
+          model: {
+            tableName: 'posts',
+          },
           key: 'id',
         }
       },
       authorId: {
         type: Sequelize.INTEGER,
+        constraints: false,
+        onDelete: 'cascade',
         references: {
-          model: 'users',
+          model: {
+            tableName: 'users',
+          },
           key: 'id',
         }
       },

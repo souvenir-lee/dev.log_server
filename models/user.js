@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasMany(models.post);
       this.hasMany(models.comment);
-      this.belongsToMany(models.post, { through: member_post, onDelete: 'CASCADE' });
+      this.belongsToMany(models.post, { through: models.member_post, constraints: false, onDelete: 'CASCADE' });
     }
   }
   user.init(

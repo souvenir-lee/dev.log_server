@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.user, { as: 'post', constraints: false, onDelete: 'CASCADE' });
-      this.belongsTo(models.category, { as: 'post', constraints: false, onDelete: 'CASCADE' });
+      this.belongsTo(models.user, { as: 'author', constraints: false, onDelete: 'CASCADE' });
+      this.belongsTo(models.category, { as: 'category', constraints: false, onDelete: 'CASCADE' });
       this.hasMany(models.comment);
-      this.belongsToMany(models.tag, { through: post_tag });
-      this.belongsToMany(models.user, { through: member_post });
+      this.belongsToMany(models.tag, { through: models.post_tag });
+      this.belongsToMany(models.user, { through: models.member_post });
     }
   }
   post.init(
