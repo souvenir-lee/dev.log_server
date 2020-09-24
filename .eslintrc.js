@@ -17,6 +17,7 @@ module.exports = {
     },
   },
 
+  parser: 'babel-eslint',
   // linter가 파일을 분석할 때, 미리 정의된 전역변수에 무엇이 있는지 명시하는 속성
   env: {
     // 브라우저의 document와 같은 객체 사용 여부

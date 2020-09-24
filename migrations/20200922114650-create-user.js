@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 'use strict';
-const { sequelize } = require("../models");
+const { sequelize } = require('../models');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -12,33 +13,27 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       username: {
         type: Sequelize.STRING,
-        allowNull: false
-      },
-      token: {
-        type: Sequelize.STRING,
-        defaultValue: null
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
-      }
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('users');
-  }
+  },
 };

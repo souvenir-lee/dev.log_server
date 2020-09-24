@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 'use strict';
-const { sequelize } = require("../models");
+const { sequelize } = require('../models');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -19,9 +20,9 @@ module.exports = {
             tableName: 'categories',
           },
           key: 'id',
-        }
+        },
       },
-      authorId: {
+      userId: {
         type: Sequelize.INTEGER,
         constraints: false,
         onDelete: 'cascade',
@@ -30,33 +31,31 @@ module.exports = {
             tableName: 'users',
           },
           key: 'id',
-        }
+        },
       },
       title: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       message: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
-      view_count: {
+      viewCount: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
-      }
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('posts');
-  }
+  },
 };

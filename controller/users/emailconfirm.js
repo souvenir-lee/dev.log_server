@@ -1,11 +1,20 @@
-const { user } = require('../../models');
-const session = require('express-session');
-
 module.exports = {
   post: (req, res) => {
-    
-    console.log('email confirm')
-    res.send('email confirm test');
-
-  }
-}
+    const { user } = require('../../models');
+    const { email } = req.body;
+    user
+      .findOne({
+        raw: true,
+        where: {
+          email: email,
+        },
+      })
+      .then((data) => {
+        if (data !== null) {
+          return res.status(409).send('Existing email address');
+        } else {
+          return res.status(200).send('Available email address'); // error 코드 확인 필요
+        }
+      });
+  },
+};

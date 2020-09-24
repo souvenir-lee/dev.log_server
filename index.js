@@ -5,38 +5,47 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const cors = require('cors');
 
-// const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users');
 // const postsRouter = require('./routes/posts');
 // const commentsRouter = require('./routes/comments');
+const socialsRouter = require('./routes/socials');
 
 const app = express();
 
 const port = 4000;
 
-app.use(
-  session({
-    secret: '@switzerland',
-    resave: false,
-    saveUninitialized: true,
-  })
-);
-
 app.get('/', (req, res) => {
   res.status(200).send('Success');
 });
 
+app.use(
+  session({
+    secret: 'dev.log@@sess', // env -> secret으로 수정 필요
+    resave: false,
+    rolling: true, // maxAge -> 갱신
+    saveUninitialized: true,
+    cookie: {
+      secure: false,
+      maxAge: 60000 * 5, // 5분간 세션 유지
+    },
+  })
+);
+
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', 'https://f469748b7080.ngrok.io'],
     method: ['GET', 'POST'],
     credentials: true,
   })
 );
 
-// app.use('/users', usersRouter);
+app.use('/users', usersRouter);
+app.use('/socials', socialsRouter);
+
 // app.use('/posts', postsRouter);
 // app.use('/comments', commentsRouter);
 

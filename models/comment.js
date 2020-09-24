@@ -9,19 +9,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.post, { as: 'post', constraints: false, onDelete: 'CASCADE' });
-      this.belongsTo(models.user, { as: 'author', constraints: false, onDelete: 'CASCADE' });
+      this.belongsTo(models.post, {
+        as: 'post',
+        constraints: false,
+        onDelete: 'CASCADE',
+      });
+      this.belongsTo(models.user, {
+        as: 'user',
+        constraints: false,
+        onDelete: 'CASCADE',
+      });
     }
   }
   comment.init(
     {
       title: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       message: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
     },
     {
