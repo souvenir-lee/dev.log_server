@@ -27,6 +27,7 @@ module.exports = {
         .then((result) => {
           if (result.data) {
             const { data } = result;
+            console.log(data);
             const username = data.login;
             const email = `github.com@${username}`; // 깃허브 주소로 이메일 대체
             const password = data.node_id;
