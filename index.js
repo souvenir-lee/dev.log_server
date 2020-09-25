@@ -20,13 +20,13 @@ app.get('/', (req, res) => {
 
 app.use(
   session({
-    secret: 'dev.log@@sess', // env -> secret으로 수정 필요
+    secret: process.env.SESSION_SECRET,
     resave: false,
     rolling: true, // maxAge -> 갱신
     saveUninitialized: true,
     cookie: {
       secure: false,
-      maxAge: 60000 * 5, // 5분간 세션 유지
+      maxAge: 60000 * 30, // 30분간 세션 유지
     },
   })
 );
@@ -39,6 +39,7 @@ app.use(
   cors({
     origin: ['http://localhost:3000', 'https://f469748b7080.ngrok.io'],
     method: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
   })
 );

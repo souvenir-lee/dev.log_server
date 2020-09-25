@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.post);
       this.hasMany(models.comment);
       this.belongsToMany(models.post, {
-        through: models.member_posts,
+        through: models.member_post,
         constraints: false,
         onDelete: 'CASCADE',
       });
-      this.hasMany(models.member_posts, { as: 'memberToPost' });
+      this.hasMany(models.member_post, { as: 'memberToPost' });
     }
   }
   user.init(
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       hooks: {
         beforeCreate: (data, options) => {
-          let secret = 'dev_log@@';
+          let secret = process.env.USER_HOOK_SECRET;
           let hash = crypto
             .createHmac('sha256', secret)
             .update(String(data.password))
@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         beforeFind: (data) => {
           if (data.where !== undefined && data.where.password) {
-            let secret = 'dev_log@@'; // env로 빼기
+            let secret = process.env.USER_HOOK_SECRET;
             let hash = crypto
               .createHmac('sha256', secret)
               .update(String(data.where.password))

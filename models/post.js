@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       });
       this.hasMany(models.comment);
-      this.belongsToMany(models.user, { through: models.member_posts });
-      this.hasMany(models.member_posts, { as: 'postToMember' });
+      this.belongsToMany(models.user, { through: models.member_post });
+      this.hasMany(models.member_post, { as: 'postToMember' });
       this.belongsToMany(models.tag, { through: models.post_tag });
       this.hasMany(models.post_tag, { as: 'postToTag' });
     }

@@ -1,9 +1,8 @@
 module.exports = {
   get: (req, res) => {
-    return res.json({
+    return res.status(200).json({
       token: req.session.userId,
-      status: 'Existing social account, now automatically logged-in',
+      status: 'Existing social account, logged in successfully',
     });
-    // 존재하는 아이디 -> login으로 안내
   },
 };
