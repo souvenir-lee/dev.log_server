@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 const { sequelize } = require('../models');
 
@@ -39,12 +40,10 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
       },
     });
   },

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 const { sequelize } = require('../models');
 
@@ -35,6 +36,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('member_post');
+    await queryInterface.dropTable('member_posts');
   },
 };

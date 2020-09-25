@@ -1,3 +1,2 @@
-# im22project3-server
-
-server측 폴더입니다.
+## Dev.log
+#### knock knock 팀의 server repository 입니다.
