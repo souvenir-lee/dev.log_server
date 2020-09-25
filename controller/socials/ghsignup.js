@@ -3,7 +3,7 @@ module.exports = {
     return res
       .status(301)
       .redirect(
-        'https://github.com/login/oauth/authorize?client_id=be24c4949ce694ddbe08&redirect_uri=https://f469748b7080.ngrok.io/socials/ghcallback'
+        `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${process.env.GITHUB_REDIRECT_URI}`
       );
   },
 };

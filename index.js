@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://f469748b7080.ngrok.io'],
+    origin: ['http://localhost:3000', 'https://nightlockwasp.com'],
     method: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
