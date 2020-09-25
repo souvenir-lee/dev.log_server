@@ -1,9 +1,9 @@
 'use strict';
-const { sequelize } = require("../models");
+const { sequelize } = require('../models');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('member_post', {
+    await queryInterface.createTable('member_posts', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -19,9 +19,9 @@ module.exports = {
             tableName: 'posts',
           },
           key: 'id',
-        }
+        },
       },
-      memberId: {
+      userId: {
         type: Sequelize.INTEGER,
         constraints: false,
         onDelete: 'cascade',
@@ -30,11 +30,11 @@ module.exports = {
             tableName: 'users',
           },
           key: 'id',
-        }
+        },
       },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('member_post');
-  }
+  },
 };
