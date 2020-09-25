@@ -19,4 +19,6 @@ router.post('/delete', postController.delete.post);
 //GET
 router.get('/info/:id', postController.info.get);
 
+router.get('/category/:id', postController.category.get);
+
 module.exports = router;

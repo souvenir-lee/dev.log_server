@@ -19,7 +19,7 @@ module.exports = {
           userId: userId,
           message: message,
           title: title,
-          view_count: 0,
+          viewCount: 0,
         })
         .then((result) => {
           if (result) {
@@ -46,7 +46,7 @@ module.exports = {
           if (isCreatePosts) {
             if (failToCreatePost(userId)) {
               //작성됬던 posts와 member_posts를 삭제
-              res.status(500).send('Internal Server Error 1');
+              res.status(500).send('Internal Server Error 11');
             } else {
               //작성됬던 posts와 member_posts삭제를 실패함
               res
@@ -94,6 +94,7 @@ const failToCreatePost = (userId) => {
 
 //member_posts 테이블 INSERT 함수
 const insertMember_Post = (postId, userId) => {
+  console.log('aaaaaaaaaaaaaaaaaa');
   return member_post
     .create({
       postId: postId,

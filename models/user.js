@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.post);
       this.hasMany(models.comment);
       this.belongsToMany(models.post, {
-        through: models.member_posts,
+        through: models.member_post,
         constraints: false,
         onDelete: 'CASCADE',
       });
-      this.hasMany(models.member_posts, { as: 'memberToPost' });
+      this.hasMany(models.member_post, { as: 'memberToPost' });
     }
   }
   user.init(

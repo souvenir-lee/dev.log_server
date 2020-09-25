@@ -16,7 +16,22 @@ module.exports = {
         })
         .then((result) => {
           if (result) {
-            res.status(200).send(result); //존재한다면 해당 id의 post 값을 전달
+            post
+              .update(
+                //해당 게시글의 조회수값을 +1 증가
+                { viewCount: result.dataValues.viewCount + 1 },
+                {
+                  where: {
+                    id: id,
+                  },
+                }
+              )
+              .then(() => {
+                res.status(200).send(result); //존재한다면 해당 id의 post 값을 전달
+              })
+              .catch(() => {
+                res.status(500).send('failed to increase viewCount');
+              });
           } else {
             res.status(404).send('not found post info');
           }

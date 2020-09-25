@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       createdAt: false,
       updatedAt: false,
-      modelName: 'member_posts',
+      modelName: 'member_post',
     }
   );
   return member_posts;
