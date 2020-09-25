@@ -18,7 +18,7 @@ module.exports = {
           if (result) {
             res.status(200).send(result); //존재한다면 해당 id의 post 값을 전달
           } else {
-            res.status(400).send('not found post info');
+            res.status(404).send('not found post info');
           }
         })
         .catch((e) => {

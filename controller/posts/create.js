@@ -1,4 +1,3 @@
-const posts = require('.');
 const { post } = require('../../models');
 const { member_post } = require('../../models');
 const { tag } = require('../../models');
