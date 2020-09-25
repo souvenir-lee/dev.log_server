@@ -33,10 +33,6 @@ module.exports = {
           key: 'id',
         },
       },
-      title: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       message: {
         type: Sequelize.STRING,
         allowNull: false,

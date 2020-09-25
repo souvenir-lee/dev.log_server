@@ -4,7 +4,7 @@ const { sequelize } = require('../models');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('post_tag', {
+    await queryInterface.createTable('post_tags', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,

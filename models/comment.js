@@ -23,10 +23,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   comment.init(
     {
-      title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       message: {
         type: DataTypes.STRING,
         allowNull: false,
