@@ -21,7 +21,7 @@ module.exports = {
             res.status(404).send('not found select category list');
           }
         })
-        .catch((e) => {
+        .catch(() => {
           res.sendStatus(500);
         });
     }

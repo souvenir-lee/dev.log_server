@@ -22,7 +22,7 @@ module.exports = {
             res.status(404).send('not found comment info');
           }
         })
-        .catch((e) => {
+        .catch(() => {
           res.sendStatus(500);
         });
     } else {

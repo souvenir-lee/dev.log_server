@@ -8,7 +8,7 @@ const commentController = require('../controller/comments');
 router.post('/create', commentController.create.post);
 
 // 댓글 수정
-// router.post('/update', commentController.)
+router.post('/update', commentController.update.post);
 
 // 댓글 삭제
 router.post('/delete', commentController.delete.post);

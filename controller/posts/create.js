@@ -35,13 +35,14 @@ module.exports = {
                 res.status(201).send(result);
               }
             } else {
+              //
               res.status(400).send('Invalid Request');
             }
           } else {
             res.status(400).send('Invalid Request');
           }
         })
-        .catch((e) => {
+        .catch(() => {
           //posts와 memeber_posts 테이블이 작성된상태에서 에러가 났을 시
           if (isCreatePosts) {
             if (failToCreatePost(userId)) {
@@ -94,7 +95,6 @@ const failToCreatePost = (userId) => {
 
 //member_posts 테이블 INSERT 함수
 const insertMember_Post = (postId, userId) => {
-  console.log('aaaaaaaaaaaaaaaaaa');
   return member_post
     .create({
       postId: postId,
