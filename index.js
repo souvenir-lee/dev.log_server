@@ -36,15 +36,9 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 const corsOptions = {
-  origin: ['http://172.30.1.39:3000', 'http//localhost:3000'],
+  origin: ['*'],
   method: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: [
-    'Origin',
-    'X-Requested-With',
-    'Content-Type',
-    'Accept',
-    'Authorization',
-  ],
+  allowedHeaders: ['X-Requested-With', 'Content-Type', 'Authorization'],
   credentials: true,
   // * 사용 시 cookie(session) 사용 불가 -> 임시로 팀원 각각 ngrok 발급해서 env 넣기
   // SSL 클라이언트에 붙이면 -> callback 해결, cors 해결
