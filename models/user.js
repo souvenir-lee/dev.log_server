@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       hooks: {
         beforeCreate: (data, options) => {
-          let secret = 'dev_log@@';
+          let secret = process.env.USER_HOOK_SECRET;
           let hash = crypto
             .createHmac('sha256', secret)
             .update(String(data.password))
@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         beforeFind: (data) => {
           if (data.where !== undefined && data.where.password) {
-            let secret = 'dev_log@@'; // env로 빼기
+            let secret = process.env.USER_HOOK_SECRET;
             let hash = crypto
               .createHmac('sha256', secret)
               .update(String(data.where.password))

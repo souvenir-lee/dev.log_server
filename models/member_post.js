@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class member_posts extends Model {
+  class member_post extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.user);
     }
   }
-  member_posts.init(
+  member_post.init(
     {},
     {
       sequelize,
@@ -22,5 +23,5 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'member_post',
     }
   );
-  return member_posts;
+  return member_post;
 };
