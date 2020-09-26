@@ -29,7 +29,6 @@ module.exports = {
             },
           })
           .then((result) => {
-            console.log(result);
             if (
               !result.data ||
               result.data.login === undefined ||

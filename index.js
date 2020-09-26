@@ -38,7 +38,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: [
-      process.env.USER_1,
+      'https://nightlockwasp.com', // SSL 붙일 클라이언트 예비 주소
+      process.env.USER_1, // 팀원 각각 localhost -> ngrok으로 바꾼 https 주소
       process.env.USER_2,
       process.env.USER_3,
       process.env.USER_4,
