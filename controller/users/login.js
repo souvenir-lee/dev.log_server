@@ -3,6 +3,13 @@ module.exports = {
     const { user } = require('../../models');
     const jwt = require('jsonwebtoken');
     const crypto = require('crypto');
+    if (
+      req.body === undefined ||
+      req.body.email === undefined ||
+      req.body.password === undefined
+    ) {
+      return res.status(400).send({ status: 'Invalid request' });
+    }
     const { email, password } = req.body;
     user
       .findOne({
@@ -14,7 +21,7 @@ module.exports = {
       })
       .then((data) => {
         if (data === null) {
-          return res.json({ status: 'invalid user' });
+          return res.status(404).json({ status: 'Invalid user' });
         } else {
           const refreshToken = data.token;
           if (refreshToken === null) {
@@ -41,16 +48,19 @@ module.exports = {
               )
               .then((result) => {
                 if (result[0] !== 0) console.log('refreshToken updated');
-                else console.log('error');
+                else console.log('refreshToken error');
+              })
+              .catch((err) => {
+                res.status(500).send(err);
               });
           }
 
           const { id, username } = data;
 
           const userInfo = { id: id, username: username };
-          const secret = 'devlog@@secret' + Date().split(' ')[2];
+          const secret = process.env.ACCESS_SECRET + Date().split(' ')[2];
           const options = {
-            expiresIn: '3d', // 세팅 필요
+            expiresIn: '1d',
             issuer: 'devlogServer',
             subject: 'userInfo',
           };
@@ -62,21 +72,16 @@ module.exports = {
             else {
               req.session.userId = token;
 
-              return res.json({
+              return res.status(200).json({
                 token: token,
-                status: 'Logged-in successfully',
-              }); // 토큰 반환됨 -> 추후 클라이언트에서 이를 헤더에 넣어서 보내줘야 함 - access token
+                status: 'Logged in successfully',
+              });
             }
           });
         }
+      })
+      .catch((err) => {
+        res.status(500).send(err);
       });
-  },
-  // get은 테스트 용도
-  get: (req, res) => {
-    const jwt = require('jsonwebtoken');
-    const token = req.session.userId;
-    const decoded = jwt.verify(token, 'devlog@@secret' + Date().split(' ')[2]);
-    console.log(decoded);
-    res.send('test'); // 디코딩 체크
   },
 };

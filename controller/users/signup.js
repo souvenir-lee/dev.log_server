@@ -2,6 +2,14 @@
 module.exports = {
   post: (req, res) => {
     const { user } = require('../../models');
+    if (
+      req.body === undefined ||
+      req.body.email === undefined ||
+      req.body.password === undefined ||
+      req.body.username === undefined
+    ) {
+      return res.status(400).send({ status: 'Invalid request' });
+    }
     const { email, password, username } = req.body;
     user
       .findOrCreate({
@@ -20,10 +28,13 @@ module.exports = {
             status: 'Existing local user',
           });
         } else {
-          return res.status(200).json({
-            status: `Success, please log-in`,
+          return res.status(201).json({
+            status: 'Success, please log in',
           });
         }
+      })
+      .catch((err) => {
+        res.status(500).send(err);
       });
   },
 };

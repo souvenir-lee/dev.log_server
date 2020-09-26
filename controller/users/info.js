@@ -7,7 +7,7 @@ module.exports = {
       const token = req.session.userId;
       const decoded = jwt.verify(
         token,
-        'devlog@@secret' + Date().split(' ')[2] // env
+        process.env.ACCESS_SECRET + Date().split(' ')[2]
       );
       const username = decoded.username;
       user
@@ -17,14 +17,17 @@ module.exports = {
             username: username,
           },
           attributes: {
-            exclude: ['password'],
+            exclude: ['password', 'token'],
           },
         })
         .then((data) => {
-          return res.json(data);
+          return res.status(200).json(data);
+        })
+        .catch((err) => {
+          res.status(500).send(err);
         });
     } else {
-      return res.json({ status: 'Access not authorized' });
+      return res.status(401).json({ status: 'Access not authorized' });
     }
   },
 };

@@ -20,13 +20,13 @@ app.get('/', (req, res) => {
 
 app.use(
   session({
-    secret: 'dev.log@@sess', // env -> secret으로 수정 필요
+    secret: process.env.SESSION_SECRET,
     resave: false,
     rolling: true, // maxAge -> 갱신
     saveUninitialized: true,
     cookie: {
       secure: false,
-      maxAge: 60000 * 5, // 5분간 세션 유지
+      maxAge: 60000 * 30, // 30분간 세션 유지
     },
   })
 );
@@ -37,8 +37,16 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://f469748b7080.ngrok.io'],
+    origin: [
+      'https://nightlockwasp.com', // SSL 붙일 클라이언트 예비 주소
+      process.env.USER_1, // 팀원 각각 localhost -> ngrok으로 바꾼 https 주소
+      process.env.USER_2,
+      process.env.USER_3,
+      process.env.USER_4,
+    ], // * 사용 시 cookie(session) 사용 불가 -> 임시로 팀원 각각 ngrok 발급해서 env 넣기
+    // SSL 클라이언트에 붙이면 -> callback 해결, cors 해결
     method: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
   })
 );
