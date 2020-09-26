@@ -35,21 +35,23 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  cors({
-    origin: [
-      'https://codeto.xyz', // SSL 붙일 클라이언트 예비 주소
-      process.env.USER_1, // 팀원 각각 localhost -> ngrok으로 바꾼 https 주소
-      process.env.USER_2,
-      process.env.USER_3,
-      process.env.USER_4,
-    ], // * 사용 시 cookie(session) 사용 불가 -> 임시로 팀원 각각 ngrok 발급해서 env 넣기
-    // SSL 클라이언트에 붙이면 -> callback 해결, cors 해결
-    method: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: ['http://172.30.1.39:3000', 'https://10bbc7dd57f4.ngrok.io'],
+  method: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: [
+    'Origin',
+    'X-Requested-With',
+    'Content-Type',
+    'Accept',
+    'Authorization',
+  ],
+  credentials: true,
+  // * 사용 시 cookie(session) 사용 불가 -> 임시로 팀원 각각 ngrok 발급해서 env 넣기
+  // SSL 클라이언트에 붙이면 -> callback 해결, cors 해결
+};
+
+app.options('*', cors());
+app.use(cors(corsOptions));
 
 app.use('/users', usersRouter);
 app.use('/socials', socialsRouter);
