@@ -38,14 +38,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: [
-      'https://nightlockwasp.com', // SSL 붙일 클라이언트 예비 주소
+      'https://codeto.xyz', // SSL 붙일 클라이언트 예비 주소
       process.env.USER_1, // 팀원 각각 localhost -> ngrok으로 바꾼 https 주소
       process.env.USER_2,
       process.env.USER_3,
       process.env.USER_4,
     ], // * 사용 시 cookie(session) 사용 불가 -> 임시로 팀원 각각 ngrok 발급해서 env 넣기
     // SSL 클라이언트에 붙이면 -> callback 해결, cors 해결
-    method: ['GET', 'POST'],
+    method: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
   })
