@@ -2,7 +2,6 @@ const { comment } = require('../../models');
 
 module.exports = {
   post: (req, res) => {
-    //post 테이블 INSERT 함수
     const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
     const { postId, userId, message } = req.body; //게시글 작성시 요청 body에 있는 값을 가져온다
 
@@ -16,7 +15,6 @@ module.exports = {
           message: message,
         })
         .then((result) => {
-          console.log(result);
           if (result) {
             res.status(201).send(result);
           } else {

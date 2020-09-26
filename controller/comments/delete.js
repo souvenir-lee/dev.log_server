@@ -23,7 +23,7 @@ module.exports = {
             res.status(400).send('Invalid Request');
           }
         })
-        .catch((e) => {
+        .catch(() => {
           res.sendStatus(500);
         });
     } else {
