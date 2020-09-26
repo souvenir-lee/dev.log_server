@@ -19,7 +19,7 @@ module.exports = {
           userId: userId,
           message: message,
           title: title,
-          view_count: 0,
+          viewCount: 0,
         })
         .then((result) => {
           if (result) {
@@ -35,18 +35,19 @@ module.exports = {
                 res.status(201).send(result);
               }
             } else {
+              //
               res.status(400).send('Invalid Request');
             }
           } else {
             res.status(400).send('Invalid Request');
           }
         })
-        .catch((e) => {
+        .catch(() => {
           //posts와 memeber_posts 테이블이 작성된상태에서 에러가 났을 시
           if (isCreatePosts) {
             if (failToCreatePost(userId)) {
               //작성됬던 posts와 member_posts를 삭제
-              res.status(500).send('Internal Server Error 1');
+              res.status(500).send('Internal Server Error 11');
             } else {
               //작성됬던 posts와 member_posts삭제를 실패함
               res
