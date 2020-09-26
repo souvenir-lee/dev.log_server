@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 const corsOptions = {
-  origin: ['http://172.30.1.39:3000', 'https://10bbc7dd57f4.ngrok.io'],
+  origin: ['http://172.30.1.39:3000', 'http//localhost:3000'],
   method: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: [
     'Origin',
