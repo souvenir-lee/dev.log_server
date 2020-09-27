@@ -11,6 +11,7 @@ module.exports = {
       return res.status(400).send({ status: 'Invalid request' });
     }
     const { email, password } = req.body;
+    // console.log(req.hostname + req.ip);
     user
       .findOne({
         raw: true,
