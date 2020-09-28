@@ -55,7 +55,7 @@ module.exports = {
                 .then(([data, created]) => {
                   const userInfo = {
                     account: email,
-                    location: req.hostname + req.ip,
+                    gmt: Date().split(' ')[5],
                   };
                   const secret =
                     process.env.ACCESS_SECRET + Date().split(' ')[2];
@@ -86,7 +86,6 @@ module.exports = {
                         }
                       )
                       .then((result) => {
-                        console.log(result);
                         if (result[0] !== 0) {
                           console.log('Date updated');
                         } else console.log('Date update error');

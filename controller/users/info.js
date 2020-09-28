@@ -10,8 +10,8 @@ module.exports = {
         process.env.ACCESS_SECRET + Date().split(' ')[2]
       );
       const email = decoded.account;
-      const location = decoded.location;
-      if (req.hostname + req.ip === location) {
+      const gmt = decoded.gmt;
+      if (Date().split(' ')[5] === gmt) {
         user
           .findOne({
             raw: true,

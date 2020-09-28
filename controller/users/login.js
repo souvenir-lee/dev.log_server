@@ -13,7 +13,7 @@ module.exports = {
     }
     const { email, password } = req.body;
     const grantAccessToken = () => {
-      const userInfo = { account: email, location: req.hostname + req.ip };
+      const userInfo = { account: email, gmt: Date().split(' ')[5] };
       const secret = process.env.ACCESS_SECRET + Date().split(' ')[2];
       const options = {
         expiresIn: '1d',
@@ -27,7 +27,6 @@ module.exports = {
         // 체크 필요
         else {
           req.session.userId = token;
-
           return res.status(200).json({
             token: token,
             status: 'Logged in successfully',
