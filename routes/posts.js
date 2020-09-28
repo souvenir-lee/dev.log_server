@@ -21,4 +21,6 @@ router.get('/info/:id', postController.info.get);
 
 router.get('/category/:id', postController.category.get);
 
+router.get('/list', postController.list.get);
+
 module.exports = router;
