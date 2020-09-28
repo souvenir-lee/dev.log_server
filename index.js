@@ -6,7 +6,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-// const cors = require('cors');
+const cors = require('cors');
 
 const usersRouter = require('./routes/users');
 const socialsRouter = require('./routes/socials');
@@ -26,6 +26,7 @@ app.use(
     cookie: {
       secure: false,
       maxAge: 60000 * 30, // 30분간 세션 유지
+      // sameSite: 'lax',
     },
   })
 );
@@ -34,20 +35,21 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // 'https://codeto.xyz'
-  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Content-Type, Authorization, Content-Length, X-Requested-With'
-  );
-
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
+app.use(
+  cors({
+    origin: ['http://localhost:3000'],
+    method: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: [
+      'Origin',
+      'X-Requested-With',
+      'Content-Type',
+      'Accept',
+      'Authorization',
+    ],
+    credentials: true,
+    // preflightContinue: true,
+  })
+);
 
 app.use('/users', usersRouter);
 app.use('/socials', socialsRouter);

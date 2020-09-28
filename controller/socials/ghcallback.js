@@ -2,6 +2,7 @@
 module.exports = {
   get: (req, res) => {
     const axios = require('axios');
+    axios.defaults.withCredentials = true;
     const { user } = require('../../models');
     const jwt = require('jsonwebtoken');
 
@@ -41,6 +42,27 @@ module.exports = {
               const username = data.login;
               const email = `github.com@${username}`; // 깃허브 주소로 이메일 대체
               const password = data.node_id;
+
+              const grantAccessToken = (status, location) => {
+                const userInfo = {
+                  account: email,
+                  gmt: Date().split(' ')[5],
+                };
+                const secret = process.env.ACCESS_SECRET + Date().split(' ')[2];
+                const options = {
+                  expiresIn: '1d',
+                  issuer: 'devlogServer',
+                  subject: 'userInfo',
+                };
+                jwt.sign(userInfo, secret, options, function (err, token) {
+                  if (err) console.log(err);
+                  else {
+                    req.session.userId = token;
+                    return res.status(status).redirect(location);
+                  }
+                });
+              };
+
               user
                 .findOrCreate({
                   where: {
@@ -53,25 +75,9 @@ module.exports = {
                   },
                 })
                 .then(([data, created]) => {
-                  const userInfo = {
-                    account: email,
-                    gmt: Date().split(' ')[5],
-                  };
-                  const secret =
-                    process.env.ACCESS_SECRET + Date().split(' ')[2];
-                  const options = {
-                    expiresIn: '1d', // 세팅 필요
-                    issuer: 'devlogServer',
-                    subject: 'userInfo',
-                  };
-                  jwt.sign(userInfo, secret, options, function (err, token) {
-                    if (err) console.log(err);
-                    else {
-                      req.session.userId = token;
-                    }
-                  });
                   if (created) {
-                    return res.status(301).redirect(`/socials/registered`);
+                    grantAccessToken(301, '/socials/registered');
+                    // return res.status(301).redirect(`/socials/registered`);
                   } else {
                     user
                       .update(
@@ -93,7 +99,8 @@ module.exports = {
                       .catch((err) => {
                         res.status(500).send(err);
                       });
-                    return res.status(301).redirect(`/socials/existing`);
+                    grantAccessToken(301, '/socials/existing');
+                    // return res.status(301).redirect(`/socials/existing`);
                   }
                 })
                 .catch((err) => {

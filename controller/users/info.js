@@ -23,11 +23,12 @@ module.exports = {
             },
           })
           .then((data) => {
-            if (data.token) {
+            if (data.token !== null || data.token !== 'N/A') {
               data.token = true;
             } else {
               data.token = false;
             }
+            console.log(req.session.userId);
             return res.status(200).json(data);
           })
           .catch((err) => {
