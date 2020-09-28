@@ -10,7 +10,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     return queryInterface.sequelize.query(
-      'CREATE EVENT deleteExpiredToken ON SCHEDULE EVERY 1 HOUR DO UPDATE users SET token = NULL WHERE TIMESTAMPDIFF(DAY, createdAt, NOW()) > 14'
+      'CREATE EVENT deleteExpiredToken ON SCHEDULE EVERY 1 HOUR DO UPDATE users SET token = NULL WHERE DATEDIFF(CURRENT_TIMESTAMP(), updatedAt) = 14'
     );
   },
 

@@ -49,12 +49,13 @@ module.exports = {
                   defaults: {
                     username: username,
                     password: password,
+                    token: 'N/A',
                   },
                 })
                 .then(([data, created]) => {
                   const userInfo = {
-                    id: data.dataValues.id,
-                    username: data.dataValues.username,
+                    account: email,
+                    gmt: Date().split(' ')[5],
                   };
                   const secret =
                     process.env.ACCESS_SECRET + Date().split(' ')[2];
@@ -67,14 +68,31 @@ module.exports = {
                     if (err) console.log(err);
                     else {
                       req.session.userId = token;
-                      req.session.save(function (err) {
-                        return;
-                      });
                     }
                   });
                   if (created) {
                     return res.status(301).redirect(`/socials/registered`);
                   } else {
+                    user
+                      .update(
+                        {
+                          token: 'N/A',
+                          updatedAt: new Date(),
+                        },
+                        {
+                          where: {
+                            email: email,
+                          },
+                        }
+                      )
+                      .then((result) => {
+                        if (result[0] !== 0) {
+                          console.log('Date updated');
+                        } else console.log('Date update error');
+                      })
+                      .catch((err) => {
+                        res.status(500).send(err);
+                      });
                     return res.status(301).redirect(`/socials/existing`);
                   }
                 })

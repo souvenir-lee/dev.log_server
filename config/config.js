@@ -30,7 +30,8 @@ module.exports = {
     username: 'devlog',
     password: process.env.PROD_DATABASE_PASSWORD,
     database: 'dev_log_production',
-    host: '127.0.0.1',
+    host: 'devlog-database.c69v5uz1yvvi.us-east-2.rds.amazonaws.com',
+    port: '13306',
     dialect: 'mysql',
     dialectOptions: {
       dateStrings: true,

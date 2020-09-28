@@ -7,3 +7,6 @@ node_modules
 # misc
 .DS_Store
 .env
+.temp_env
+
+local_draft.js

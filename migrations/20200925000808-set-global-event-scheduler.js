@@ -9,7 +9,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    return queryInterface.sequelize.query('SET GLOBAL event_scheduler = ON');
+    // return queryInterface.sequelize.query('SET GLOBAL event_scheduler = ON');
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -19,6 +19,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    return queryInterface.sequelize.query('SET GLOBAL event_scheduler = OFF');
+    // return queryInterface.sequelize.query('SET GLOBAL event_scheduler = OFF');
   },
 };
