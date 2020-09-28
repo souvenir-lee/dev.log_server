@@ -4,4 +4,5 @@ module.exports = {
   delete: require('./delete'),
   info: require('./info'),
   category: require('./category'),
+  list: require('./list'),
 };
