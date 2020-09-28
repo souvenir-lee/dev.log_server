@@ -3,7 +3,7 @@ module.exports = {
     const { user } = require('../../models');
     const jwt = require('jsonwebtoken');
     const crypto = require('crypto');
-    const Sequelize = require('Sequelize');
+    const Sequelize = require('sequelize');
     if (
       req.body === undefined ||
       req.body.email === undefined ||
