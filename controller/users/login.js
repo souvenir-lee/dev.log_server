@@ -12,7 +12,7 @@ module.exports = {
       return res.status(400).send({ status: 'Invalid request' });
     }
     const { email, password } = req.body;
-    const grantAccessToken = () => {
+    const grantAccessToken = (userData) => {
       const userInfo = { account: email, gmt: Date().split(' ')[5] };
       const secret = process.env.ACCESS_SECRET + Date().split(' ')[2];
       const options = {
@@ -20,14 +20,17 @@ module.exports = {
         issuer: 'devlogServer',
         subject: 'userInfo',
       };
-
       jwt.sign(userInfo, secret, options, function (err, token) {
         // access token
         if (err) console.log(err);
         // 체크 필요
         else {
           req.session.userId = token;
+          userData['password'] ? delete userData['password'] : false;
+          userData['token'] ? delete userData['token'] : false;
+          console.log(req.session);
           return res.status(200).json({
+            userData: userData,
             token: token,
             status: 'Logged in successfully',
           });
@@ -40,14 +43,18 @@ module.exports = {
       .findAll({
         raw: true,
         where: {
-          token: { [Sequelize.Op.ne]: null },
+          token: { [Sequelize.Op.ne]: null || 'N/A' },
         },
       })
       .then((data) => {
         const verifiedUsers = [];
-        data.map((ele) => verifiedUsers.push(ele.email));
+        let userData = undefined;
+        data.map((ele) => {
+          verifiedUsers.push(ele.email);
+          userData = ele;
+        });
         if (verifiedUsers.indexOf(email) !== -1) {
-          grantAccessToken();
+          grantAccessToken(userData);
         } else {
           user
             .findOne({
@@ -86,10 +93,20 @@ module.exports = {
                         },
                       }
                     )
-                    .then((result) => {
-                      if (result[0] !== 0) {
+                    .then((updated) => {
+                      if (updated !== 0) {
                         console.log('refreshToken updated');
-                        grantAccessToken();
+                        user
+                          .findOne({
+                            raw: true,
+                            where: {
+                              email: email,
+                            },
+                          })
+                          .then((userData) => grantAccessToken(userData))
+                          .catch((err) => {
+                            res.status(500).send(err);
+                          });
                       } else console.log('refreshToken error');
                     })
                     .catch((err) => {
