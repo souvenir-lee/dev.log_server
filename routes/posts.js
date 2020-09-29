@@ -23,4 +23,6 @@ router.get('/category/:id', postController.category.get);
 
 router.get('/list', postController.list.get);
 
+router.get('/sort/:item', postController.sort.get);
+
 module.exports = router;

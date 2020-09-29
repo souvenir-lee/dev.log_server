@@ -9,8 +9,7 @@ module.exports = {
     const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
     const { names, categoryId, userId, message, title } = req.body; //게시글 작성시 요청 body에 있는 값을 가져온다
 
-    // if (sess.userId) {
-    if (true) {
+    if (sess.userId) {
       let isCreatePosts = false; //post.create가 성공했는지를 구분하기 위한 변수
       //사용자가 로그인중이라면
       post

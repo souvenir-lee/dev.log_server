@@ -5,4 +5,5 @@ module.exports = {
   info: require('./info'),
   category: require('./category'),
   list: require('./list'),
+  sort: require('./sort'),
 };
