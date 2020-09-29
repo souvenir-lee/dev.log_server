@@ -18,8 +18,7 @@ module.exports = {
           categoryId: 1,
           userId: 4,
           title: '포스트 2 카테고리 1',
-          message:
-            '포스트 테스트 2번 긴글입니다. AWS에서는 "SET GLOBAL event_scheduler = ON" 쿼리문을 직접 쓸 수 없습니다. 아마존 튜토리얼 번역 구리고 설명 불친절해요. 인터페이스 그만 바꿔',
+          message: '포스트 테스트 2번 테스트입니다.',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -66,7 +65,7 @@ module.exports = {
         {
           categoryId: 3,
           userId: 2,
-          title: '포스트 8 카테고리 2 테스트',
+          title: '포스트 8 카테고리 3 테스트',
           message: '메세지 NOT NULL',
           createdAt: new Date(),
           updatedAt: new Date(),
