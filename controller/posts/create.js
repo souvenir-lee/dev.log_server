@@ -1,7 +1,7 @@
 const { post } = require('../../models');
-const { member_post } = require('../../models');
 const { tag } = require('../../models');
 const { post_tag } = require('../../models');
+// const { member_post } = require('../../models');
 
 module.exports = {
   post: (req, res) => {
@@ -22,40 +22,32 @@ module.exports = {
         })
         .then((result) => {
           if (result) {
-            //posts 테이블을 작성했다면 member_posts 테이블 INSERT함수 실행
-            if (insertMember_Post(result.dataValues.id, userId)) {
-              isCreatePosts = true;
-              //tag가 1개 이상이라도 array형태로 존재한다면
-              if (Array.isArray(names) && names.length !== 0) {
-                insertTag(names, result.dataValues.id); //tags와 post_tags 테이블 INSERT함수 실행
-                res.status(201).send(result);
-              } else {
-                //tag를 쓰지 않았더라도 정상적으로 게시글 작성됨
-                res.status(201).send(result);
-              }
+            isCreatePosts = true;
+            //tag가 1개 이상이라도 array형태로 존재한다면
+            if (Array.isArray(names) && names.length !== 0) {
+              insertTag(names, result.dataValues.id); //tags와 post_tags 테이블 INSERT함수 실행
+              res.status(201).send(result);
             } else {
-              //
-              res.status(400).send('Invalid Request');
+              //tag를 쓰지 않았더라도 정상적으로 게시글 작성됨
+              res.status(201).send(result);
             }
           } else {
             res.status(400).send('Invalid Request');
           }
         })
         .catch(() => {
-          //posts와 memeber_posts 테이블이 작성된상태에서 에러가 났을 시
+          //posts테이블이 작성된상태에서 에러가 났을 시
           if (isCreatePosts) {
             if (failToCreatePost(userId)) {
-              //작성됬던 posts와 member_posts를 삭제
-              res.status(500).send('Internal Server Error 11');
+              //작성됬던 posts를 삭제
+              res.status(500).send('Internal Server Error');
             } else {
-              //작성됬던 posts와 member_posts삭제를 실패함
-              res
-                .status(500)
-                .send('posts and member_posts table critical error 1');
+              //작성됬던 posts삭제를 실패함
+              res.status(500).send('posts delete critical error 1');
             }
           } else {
             //posts insert자체에서 에러가 났을 시
-            res.status(500).send('Internal Server Error 1');
+            res.status(500).send('Internal Server Error');
           }
         });
     } else {
@@ -77,7 +69,7 @@ const failToCreatePost = (userId) => {
       //max의 결과값인 result는 객체형태가 아니라 정확히 숫자로 나옴 ex)15
       post
         .destroy({
-          //해당 유저가 작성한 post중 가장 최근(max(id))작성한 게시글을 삭제시킴, member_posts에 INSERT된 값도 자동삭제됨
+          //해당 유저가 작성한 post중 가장 최근(max(id))작성한 게시글을 삭제시킴
           where: {
             id: result,
             userId: userId,
@@ -89,23 +81,6 @@ const failToCreatePost = (userId) => {
         .catch(() => {
           return false;
         });
-    });
-};
-
-//member_posts 테이블 INSERT 함수
-const insertMember_Post = (postId, userId) => {
-  return member_post
-    .create({
-      postId: postId,
-      userId: userId,
-    })
-    .then((result) => {
-      if (result) {
-        return true;
-      }
-    })
-    .catch((e) => {
-      return false;
     });
 };
 

@@ -1,6 +1,5 @@
 const { post } = require('../../models');
-const { user } = require('../../models');
-const { member_post } = require('../../models');
+const Sequelize = require('sequelize');
 
 module.exports = {
   get: (req, res) => {
@@ -28,33 +27,31 @@ module.exports = {
                 }
               )
               .then(() => {
-                //member_posts테이블에서 해당 게시글의 번호로 검색
-                member_post
+                post
                   .findOne({
+                    attributes: {
+                      include: [
+                        //게시글 작성자의 'username'과 해당 게시글에 달린 댓글 수 'commentCount'를 응답 객체에 추가
+                        [
+                          Sequelize.literal(
+                            `(SELECT username FROM users where post.userId = users.id)`
+                          ),
+                          'username',
+                        ],
+                        [
+                          Sequelize.literal(
+                            `(SELECT count(c.id) FROM comments c where c.postId = post.id)`
+                          ),
+                          'commentCount',
+                        ],
+                      ],
+                    },
                     where: {
-                      postId: id,
+                      id: id,
                     },
                   })
                   .then((result2) => {
-                    //해당 게시글의 번호와 join관계에 있는 users테이블을 검색
-                    user
-                      .findOne({
-                        where: {
-                          id: result2.dataValues.userId,
-                        },
-                      })
-                      .then((result3) => {
-                        //검색결과로 나온 유저가 게시글을 쓴 user이고 이를 사용해 결과값 객체에 username속성을 추가해서 전달
-                        let result4 = result;
-                        result4.dataValues['username'] = result3.username;
-                        res.status(200).send(result4);
-                      })
-                      .catch(() => {
-                        res.sendStatus(500);
-                      });
-                  })
-                  .catch(() => {
-                    res.sendStatus(500);
+                    res.status(200).send(result2);
                   });
               })
               .catch(() => {

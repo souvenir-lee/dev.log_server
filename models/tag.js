@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         constraints: false,
         onDelete: 'CASCADE',
       });
-      this.hasMany(models.post_tag, { as: 'tagToPost' });
+      // this.hasMany(models.post_tag, { as: 'tagToPost' });
     }
   }
   tag.init(

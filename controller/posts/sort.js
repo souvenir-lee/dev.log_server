@@ -1,5 +1,4 @@
 const { post } = require('../../models');
-const { comment } = require('../../models');
 const Sequelize = require('sequelize');
 
 module.exports = {
@@ -11,13 +10,30 @@ module.exports = {
     const orderPostAttribute = (item) => {
       post
         .findAll({
+          attributes: {
+            include: [
+              //게시글 작성자의 'username'과 해당 게시글에 달린 댓글 수 'commentCount'를 응답 객체에 추가
+              [
+                Sequelize.literal(
+                  `(SELECT username FROM users where post.userId = users.id)`
+                ),
+                'username',
+              ],
+              [
+                Sequelize.literal(`(
+                SELECT COUNT(*) FROM comments where post.id = comments.postId
+              )`),
+                'commentCount',
+              ],
+            ],
+          },
           order: [[item, 'DESC']],
         })
         .then((result) => {
           if (result) {
             res.status(200).send(result);
           } else {
-            res.status(200).send('not found sort list');
+            res.status(404).send('not found sort list');
           }
         })
         .catch((e) => {
@@ -30,6 +46,12 @@ module.exports = {
         .findAll({
           attributes: {
             include: [
+              [
+                Sequelize.literal(
+                  `(SELECT username FROM users where post.userId = users.id)`
+                ),
+                'username',
+              ],
               [
                 Sequelize.literal(`(
                 SELECT COUNT(*) FROM comments where post.id = comments.postId
@@ -52,7 +74,9 @@ module.exports = {
         });
     };
     // -----------------------------end function-----------------------------
+
     if (sess.userId) {
+      console.log('sess.userId :::: ', sess.userId);
       if (item === 'id' || item === 'viewCount') {
         orderPostAttribute(item);
       } else if (item === 'commentCount') {
