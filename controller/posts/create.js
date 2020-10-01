@@ -7,7 +7,7 @@ module.exports = {
   post: (req, res) => {
     //post 테이블 INSERT 함수
     const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
-    const { names, categoryId, userId, message, title } = req.body; //게시글 작성시 요청 body에 있는 값을 가져온다
+    const { names, categoryId, authorId, message, title } = req.body; //게시글 작성시 요청 body에 있는 값을 가져온다
 
     if (sess.userId) {
       let isCreatePosts = false; //post.create가 성공했는지를 구분하기 위한 변수
@@ -15,7 +15,7 @@ module.exports = {
       post
         .create({
           categoryId: categoryId,
-          userId: userId,
+          authorId: authorId,
           message: message,
           title: title,
           viewCount: 0,
@@ -38,7 +38,7 @@ module.exports = {
         .catch(() => {
           //posts테이블이 작성된상태에서 에러가 났을 시
           if (isCreatePosts) {
-            if (failToCreatePost(userId)) {
+            if (failToCreatePost(authorId)) {
               //작성됬던 posts를 삭제
               res.status(500).send('Internal Server Error');
             } else {
@@ -58,11 +58,11 @@ module.exports = {
 };
 
 //post.create.then(여기서 오류가 났을 때 catch에서 실행될 함수)
-const failToCreatePost = (userId) => {
+const failToCreatePost = (authorId) => {
   return post
     .max('id', {
       where: {
-        userId: userId,
+        authorId: authorId,
       },
     })
     .then((result) => {
@@ -72,7 +72,7 @@ const failToCreatePost = (userId) => {
           //해당 유저가 작성한 post중 가장 최근(max(id))작성한 게시글을 삭제시킴
           where: {
             id: result,
-            userId: userId,
+            authorId: authorId,
           },
         })
         .then(() => {

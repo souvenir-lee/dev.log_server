@@ -15,7 +15,7 @@ module.exports = {
               //게시글 작성자의 'username'과 해당 게시글에 달린 댓글 수 'commentCount'를 응답 객체에 추가
               [
                 Sequelize.literal(
-                  `(SELECT username FROM users where post.userId = users.id)`
+                  `(SELECT username FROM users where post.authorId = users.id)`
                 ),
                 'username',
               ],
