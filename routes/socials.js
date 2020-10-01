@@ -7,6 +7,10 @@ const socialController = require('../controller/socials');
 router.get('/ghsignup', socialController.ghsignup.get);
 router.get('/ghcallback', socialController.ghcallback.get);
 
+// naver 전용
+router.get('/nvsignup', socialController.nvsignup.get);
+router.get('/nvcallback', socialController.nvcallback.get);
+
 // social -> 공통으로 사용 가능
 router.get('/registered', socialController.registered.get);
 router.get('/existing', socialController.existing.get);
