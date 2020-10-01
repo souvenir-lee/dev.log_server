@@ -8,19 +8,19 @@ module.exports = {
       [
         {
           postId: 1,
-          userId: 1,
+          memberId: 1,
         },
         {
           postId: 1,
-          userId: 2,
+          memberId: 2,
         },
         {
           postId: 1,
-          userId: 3,
+          memberId: 3,
         },
         {
           postId: 1,
-          userId: 4,
+          memberId: 4,
         },
       ],
       {}

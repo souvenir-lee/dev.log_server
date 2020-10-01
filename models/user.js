@@ -12,14 +12,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.post);
+      this.hasMany(models.post, { foreignKey: 'authorId' }); // 'author'로 post 테이블에 id 등록됨, foreignKey 안 해두면 오류 생김!(authorId, userId 둘 다 검색함)
       this.hasMany(models.comment);
-      this.belongsToMany(models.post, {
-        through: models.member_post,
-        constraints: false,
-        onDelete: 'CASCADE',
-      });
-      this.hasMany(models.member_post, { as: 'memberToPost' });
+
+      this.hasMany(models.member_post, { foreignKey: 'memberId' }); // N:M, foreignKey 안 해두면 오류 생김!(memberId, userId 둘 다 검색함)
+      // === super many to many
+      // this.belongsToMany(models.post, {
+      //   through: models.member_post,
+      // });
     }
   }
   user.init(
