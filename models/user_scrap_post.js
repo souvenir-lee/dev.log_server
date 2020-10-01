@@ -2,7 +2,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class post_tag extends Model {
+  class user_scrap_post extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -10,18 +10,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.tag);
+      this.belongsTo(models.user);
       this.belongsTo(models.post);
     }
   }
-  post_tag.init(
+  user_scrap_post.init(
     {},
     {
       sequelize,
       createdAt: false,
       updatedAt: false,
-      modelName: 'post_tag',
+      modelName: 'user_scrap_post',
     }
   );
-  return post_tag;
+  return user_scrap_post;
 };

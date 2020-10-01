@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsToMany(models.post, {
-        through: models.post_tag,
-        constraints: false,
-        onDelete: 'CASCADE',
-      });
-      // this.hasMany(models.post_tag, { as: 'tagToPost' });
+      this.hasMany(models.post_tag); // N:M
+      // === super many to many
+      // this.belongsToMany(models.post, {
+      //   through: models.post_tag,
+      // });
+
     }
   }
   tag.init(

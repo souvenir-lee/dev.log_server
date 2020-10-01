@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.post);
-      this.belongsTo(models.user);
+      this.belongsTo(models.user, { as: 'member' }); // member_posts 테이블에 memberId 존재
     }
   }
   member_post.init(

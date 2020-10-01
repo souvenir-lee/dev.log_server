@@ -22,7 +22,7 @@ module.exports = {
           key: 'id',
         },
       },
-      userId: {
+      authorId: {
         type: Sequelize.INTEGER,
         constraints: false,
         onDelete: 'cascade',

@@ -9,20 +9,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.user, {
-        as: 'user',
+        as: 'author',
         constraints: false,
         onDelete: 'CASCADE',
-      });
+      }); // posts 테이블에 authorId 존재
       this.belongsTo(models.category, {
-        as: 'category',
         constraints: false,
         onDelete: 'CASCADE',
       });
       this.hasMany(models.comment);
-      this.belongsToMany(models.user, { through: models.member_post });
-      this.hasMany(models.member_post, { as: 'postToMember' });
-      this.belongsToMany(models.tag, { through: models.post_tag });
-      this.hasMany(models.post_tag, { as: 'postToTag' });
+      this.hasMany(models.member_post); // N:M
+      this.hasMany(models.post_tag); // N:M
+      // === super many to many
+      // this.belongsToMany(models.user, {
+      //   as: 'member',
+      //   through: models.member_post,
+      // });
+      // this.belongsToMany(models.tag, { through: models.post_tag });
     }
   }
   post.init(
