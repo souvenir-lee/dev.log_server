@@ -63,9 +63,9 @@ app.get('/health', (req, res) => {
   res.status(299).send('health check');
 });
 
-app.get('/', (req, res) => {
-  res.status(200).send('Success');
-});
+// app.get('/', (req, res) => {
+//   res.status(200).send('Success');
+// });
 
 app.listen(port, () => {
   console.log(`server listening on ${port}`);

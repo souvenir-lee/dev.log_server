@@ -14,6 +14,6 @@ router.post('/update', commentController.update.post);
 router.post('/delete', commentController.delete.post);
 
 // GET
-router.get('/info/:id', commentController.info.get);
+router.get('/list/:id', commentController.list.get);
 
 module.exports = router;

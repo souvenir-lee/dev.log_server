@@ -5,8 +5,7 @@ module.exports = {
     const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
     const { postId, userId, message } = req.body; //게시글 작성시 요청 body에 있는 값을 가져온다
 
-    // if (sess.userId) {
-    if (true) {
+    if (sess.userId) {
       //사용자가 로그인중이라면
       comment
         .create({
@@ -21,7 +20,7 @@ module.exports = {
             res.status(400).send('Invalid Request');
           }
         })
-        .catch((e) => {
+        .catch(() => {
           res.sendStatus(500);
         });
     } else {

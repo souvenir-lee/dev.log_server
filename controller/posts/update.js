@@ -13,8 +13,7 @@ module.exports = {
       title: title,
     };
 
-    // if (sess.userid) {
-    if (true) {
+    if (sess.userId) {
       post
         .update(updatedPost, {
           //posts.id가 넘겨받은 id(수정하는 게시글의 id)인 게시글을 update
