@@ -14,6 +14,7 @@ const postsRouter = require('./routes/posts');
 const commentsRouter = require('./routes/comments');
 const customRouter = require('./routes/custom');
 const searchRouter = require('./routes/search');
+const categoryRouter = require('./routes/category');
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
 app.use('/custom', customRouter);
 app.use('/search', searchRouter);
+app.use('/category', categoryRouter);
 
 app.get('/health', (req, res) => {
   console.log('Time:', Date());
