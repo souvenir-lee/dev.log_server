@@ -1,23 +1,25 @@
 /* eslint-disable no-unused-vars */
 const { post } = require('../../models');
-const { tag } = require('../../models');
-const { post_tag } = require('../../models');
+const { user } = require('../../models');
+
+const { member_post } = require('../../models');
 
 module.exports = {
   get: (req, res) => {
     // req로 전송한 tag name이 붙어있는 post 리스트 제공
-    const target = req.body.tag; // =========== 조율 필요
+    const id = Number(req.params.id);
 
-    post_tag
+    member_post
       .findAll({
         raw: true,
         include: [
           {
-            model: tag,
+            model: user,
+            as: 'member',
             where: {
-              name: target,
+              id: id,
             },
-            attributes: ['name'],
+            attributes: ['username'],
           },
           {
             model: post,

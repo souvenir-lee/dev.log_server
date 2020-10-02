@@ -3,14 +3,12 @@ const router = express.Router();
 
 const customController = require('../controller/custom');
 
-// get list
-router.get('/scrap/:id', customController.scrap.get);
-
 // add or remove from list
 router.post('/scrap', customController.scrap.post);
 
+// get list
+router.get('/scrap/:id', customController.scrap.get);
 router.get('/mypost/:id', customController.mypost.get);
-
-router.get('/tagpost', customController.tagpost.get);
+router.get('/tagged/:id', customController.tagged.get);
 
 module.exports = router;
