@@ -48,7 +48,7 @@ module.exports = {
             include: [
               [
                 Sequelize.literal(
-                  `(SELECT username FROM users where post.userId = users.id)`
+                  `(SELECT username FROM users where post.authorId = users.id)`
                 ),
                 'username',
               ],
