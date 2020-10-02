@@ -3,7 +3,7 @@ const { comment } = require('../../models');
 module.exports = {
   post: (req, res) => {
     // const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
-    const { id, token } = req.body.data;
+    const { id, token } = req.body;
 
     if (token) {
       // if (sess.userId) {
