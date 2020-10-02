@@ -7,8 +7,7 @@ const jwt = require('jsonwebtoken');
 module.exports = {
   post: (req, res) => {
     // const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
-    const { id, names, categoryId, message, title } = req.body.data; //게시글 작성시 요청 body에 있는 값을 가져온다
-    const { token } = req.body;
+    const { token, id, names, categoryId, message, title } = req.body; //게시글 작성시 요청 body에 있는 값을 가져온다
 
     const decoded = jwt.verify(
       token,
