@@ -1,10 +1,11 @@
 module.exports = {
-  get: (req, res) => {
+  post: (req, res) => {
     const { user } = require('../../models');
     const jwt = require('jsonwebtoken');
 
-    if (req.session.userId) {
-      const token = req.session.userId;
+    // if (req.session.userId) { // 세션 사용 불가, 대안
+    if (req.body.token) {
+      const token = req.body.token; // req.session.userId;
       const decoded = jwt.verify(
         token,
         process.env.ACCESS_SECRET + Date().split(' ')[2]
@@ -28,7 +29,8 @@ module.exports = {
             } else {
               data.token = false;
             }
-            console.log(req.session.userId);
+            // console.log(req.session.userId);
+            console.log(data);
             return res.status(200).json(data);
           })
           .catch((err) => {

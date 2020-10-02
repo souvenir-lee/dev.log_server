@@ -26,7 +26,7 @@ module.exports = {
         if (err) console.log(err);
         // 체크 필요
         else {
-          req.session.userId = token;
+          // req.session.userId = token;
           userData['password'] ? delete userData['password'] : false;
           userData['token'] ? delete userData['token'] : false;
           // console.log(req.session);

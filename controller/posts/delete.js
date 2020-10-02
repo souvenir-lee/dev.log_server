@@ -1,12 +1,18 @@
 const { post } = require('../../models');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   post: (req, res) => {
-    const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
-    const { id } = req.body;
-
-    if (sess.userId) {
-      //로그인 세션이 연결되어있다면
+    // const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
+    const { token, id } = req.body;
+    const decoded = jwt.verify(
+      token,
+      process.env.ACCESS_SECRET + Date().split(' ')[2]
+    );
+    const email = decoded.account;
+    // if (sess.userId) {
+    //로그인 세션이 연결되어있다면
+    if (email) {
       post
         .destroy({
           //post를 삭제하므로 cascade로 연결되어있는 다른 테이블의 값들도 자동 삭제

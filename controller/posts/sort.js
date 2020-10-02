@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 
 module.exports = {
   get: (req, res) => {
-    const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
+    // const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
     const item = req.params.item;
 
     // -----------------------------start function-----------------------------
@@ -75,16 +75,16 @@ module.exports = {
     };
     // -----------------------------end function-----------------------------
 
-    if (sess.userId) {
-      console.log('sess.userId :::: ', sess.userId);
-      if (item === 'id' || item === 'viewCount') {
-        orderPostAttribute(item);
-      } else if (item === 'commentCount') {
-        orderCommentCount();
-      }
-    } else {
-      //로그인 세션이 끊어져있다면
-      res.redirect('/');
+    // if (sess.userId) {
+    // console.log('sess.userId :::: ', sess.userId);
+    if (item === 'id' || item === 'viewCount') {
+      orderPostAttribute(item);
+    } else if (item === 'commentCount') {
+      orderCommentCount();
     }
+    // } else {
+    //   //로그인 세션이 끊어져있다면
+    //   res.redirect('/');
+    // }
   }, //end get
 };
