@@ -5,55 +5,34 @@ const { user_scrap_post } = require('../../models');
 
 module.exports = {
   get: (req, res) => {
-    // 즐겨찾기 리스트 요청 -> 유저
-    // const userId = req.body.userId; -> 세션 유지 안 될 경우에 사용 by props
-    const jwt = require('jsonwebtoken');
+    const id = Number(req.params.id);
 
-    if (req.session.userId) {
-      const token = req.session.userId;
-      const decoded = jwt.verify(
-        token,
-        process.env.ACCESS_SECRET + Date().split(' ')[2]
-      );
-      const email = decoded.account;
-      user
-        .findOne({
-          raw: true,
-          where: {
-            email: email,
+    user_scrap_post
+      .findAll({
+        raw: true,
+        include: [
+          {
+            model: user,
+            attributes: ['username'],
+            where: {
+              id: id,
+            },
           },
-          attributes: ['id'],
-        })
-        .then((result) => {
-          const userId = result.id;
-          user_scrap_post
-            .findAll({
-              raw: true,
-              include: [
-                {
-                  model: user,
-                  attributes: ['username'],
-                  where: {
-                    id: userId,
-                  },
-                },
-                {
-                  model: post,
-                  attributes: ['title', 'message'],
-                },
-              ],
-            })
-            .then((result) => {
-              res.send(result); // status 필요
-            })
-            .catch((err) => {
-              res.status(500).send(err);
-            });
-        })
-        .catch((err) => {
-          res.status(500).send(err);
-        });
-    }
+          {
+            model: post,
+            attributes: ['title', 'message'],
+          },
+        ],
+        attributes: {
+          exclude: ['id'],
+        },
+      })
+      .then((result) => {
+        res.send(result); // status 필요
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   },
 
   post: (req, res) => {

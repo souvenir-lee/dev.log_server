@@ -2,10 +2,11 @@ const { comment } = require('../../models');
 
 module.exports = {
   post: (req, res) => {
-    const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
-    const { id } = req.body;
+    // const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
+    const { id, token } = req.body.data;
 
-    if (sess.userId) {
+    if (token) {
+      // if (sess.userId) {
       //로그인 세션이 연결되어있다면
       comment
         .destroy({
@@ -25,9 +26,9 @@ module.exports = {
         .catch(() => {
           res.sendStatus(500);
         });
-    } else {
-      //로그인 세션이 끊어져있다면
-      res.redirect('/');
+      // } else {
+      //   //로그인 세션이 끊어져있다면
+      //   res.redirect('/');
     }
   },
 };

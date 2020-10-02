@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
       // this.belongsToMany(models.post, {
       //   through: models.post_tag,
       // });
-
     }
   }
   tag.init(

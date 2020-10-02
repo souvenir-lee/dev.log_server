@@ -6,10 +6,11 @@ const { post_tag } = require('../../models');
 module.exports = {
   post: (req, res) => {
     //post 테이블 INSERT 함수
-    const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
-    const { names, categoryId, authorId, message, title } = req.body; //게시글 작성시 요청 body에 있는 값을 가져온다
+    // const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
+    const { token, names, categoryId, authorId, message, title } = req.body; //게시글 작성시 요청 body에 있는 값을 가져온다
 
-    if (sess.userId) {
+    // if (sess.userId) {
+    if (token) {
       let isCreatePosts = false; //post.create가 성공했는지를 구분하기 위한 변수
       //사용자가 로그인중이라면
       post
