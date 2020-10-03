@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
-const { user } = require('../../models');
 const { post } = require('../../models');
-const { comment } = require('../../models');
 const Sequelize = require('sequelize');
 
 module.exports = {
@@ -11,28 +9,39 @@ module.exports = {
 
     post
       .findAll({
+        //posts 테이블 전체 탐색
         raw: true,
         where: {
           authorId: id,
         },
-        attributes: [
-          ['id', 'postId'],
-          'title',
-          ['authorId', 'userId'],
-          'message',
-        ],
-        include: [
-          {
-            model: comment,
-            // required: true,
-            attributes: [
-              ['id', 'commentId'],
-              ['message', 'comment'],
-              ['userId', 'commentUserId'],
+        attributes: {
+          include: [
+            //게시글 작성자의 'username'과 해당 게시글에 달린 댓글 수 'commentCount'를 응답 객체에 추가
+            [
+              Sequelize.literal(
+                `(SELECT username FROM users where post.authorId = users.id)`
+              ),
+              'username',
             ],
-          },
-        ],
+            [
+              Sequelize.literal(
+                `(SELECT count(c.id) FROM comments c where c.postId = post.id)`
+              ),
+              'commentCount',
+            ],
+          ],
+        },
       })
-      .then((result) => res.send(result));
+      .then((result) => {
+        if (result) {
+          res.status(200).send(result);
+        } else {
+          res.status(404).send('not found post list');
+        }
+      })
+      .catch(() => {
+        res.sendStatus(500);
+      });
+    // }
   },
 };
