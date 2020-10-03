@@ -22,6 +22,22 @@ module.exports = {
           postId: 1,
           memberId: 4,
         },
+        {
+          postId: 2,
+          memberId: 1,
+        },
+        {
+          postId: 6,
+          memberId: 1,
+        },
+        {
+          posetId: 4,
+          memberId: 4,
+        },
+        {
+          postId: 5,
+          memberId: 4,
+        },
       ],
       {}
     );
