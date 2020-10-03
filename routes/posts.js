@@ -11,6 +11,7 @@ router.post('/', (req, res) => {
 router.post('/create', postController.create.post);
 
 //게시글 수정
+router.get('/update/:id', postController.update.get);
 router.post('/update', postController.update.post);
 
 //게시글 삭제

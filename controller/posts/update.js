@@ -6,6 +6,45 @@ const { member_post } = require('../../models');
 const { user } = require('../../models');
 const jwt = require('jsonwebtoken');
 module.exports = {
+  get: (req, res) => {
+    const id = Number(req.params.id);
+    post_tag
+      .findAll({
+        raw: true,
+        where: {
+          postId: id,
+        },
+        include: {
+          model: tag,
+          attributes: [['name', 'tag']],
+        },
+        attributes: [],
+      })
+      .then((result) => {
+        const tagList = Object.values(result).map((ele) => ele['tag.tag']);
+
+        member_post
+          .findAll({
+            raw: true,
+            where: {
+              postId: id,
+            },
+            include: {
+              model: user,
+              as: 'member',
+              attributes: [['username', 'name']],
+            },
+            attributes: [],
+          })
+          .then((result) => {
+            const memberList = Object.values(result).map(
+              (ele) => ele['member.name']
+            );
+            res.status(200).send([tagList, memberList]);
+          });
+      });
+  },
+
   post: (req, res) => {
     // const sess = req.session; //세션정보를 가져온다. 사용자가 로그인중인지 확인하기 위함
     const { token, id, names, tags, categoryId, message, title } = req.body; //게시글 작성시 요청 body에 있는 값을 가져온다
