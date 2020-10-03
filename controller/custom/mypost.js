@@ -30,6 +30,7 @@ module.exports = {
               'commentCount',
             ],
           ],
+          exclude: ['id', 'updatedAt', 'authorId'],
         },
       })
       .then((result) => {

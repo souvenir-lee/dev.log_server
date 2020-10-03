@@ -20,15 +20,15 @@ module.exports = {
           },
           {
             model: post,
-            attributes: ['title', 'message'],
+            attributes: ['title', 'message', 'createdAt'],
           },
         ],
         attributes: {
-          exclude: ['id'],
+          exclude: ['id', 'userId'],
         },
       })
       .then((result) => {
-        res.send(result); // status 필요
+        res.status(200).send(result); // status 필요
       })
       .catch((err) => {
         res.status(500).send(err);
