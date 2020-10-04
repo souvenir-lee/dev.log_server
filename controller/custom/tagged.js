@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 const { post } = require('../../models');
 const { user } = require('../../models');
+const { category } = require('../../models');
 
 const { member_post } = require('../../models');
 
@@ -23,12 +24,16 @@ module.exports = {
           },
           {
             model: post,
-            attributes: ['id', 'title'],
+            attributes: ['id', 'title', 'viewCount'],
             include: [
               {
                 model: user,
                 as: 'author',
                 attributes: [['username', 'taggedUser'], 'createdAt'],
+              },
+              {
+                model: category,
+                attributes: ['title'],
               },
             ],
           },

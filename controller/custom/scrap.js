@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 const { user } = require('../../models');
 const { post } = require('../../models');
+const { category } = require('../../models');
 const { user_scrap_post } = require('../../models');
 
 module.exports = {
@@ -20,11 +21,17 @@ module.exports = {
           },
           {
             model: post,
-            attributes: ['title', 'message', 'createdAt'],
+            attributes: ['title', 'message', 'createdAt', 'viewcount'],
+            include: [
+              {
+                model: category,
+                attributes: ['title'],
+              },
+            ],
           },
         ],
         attributes: {
-          exclude: ['id', 'userId'],
+          exclude: ['userId'],
         },
       })
       .then((result) => {
