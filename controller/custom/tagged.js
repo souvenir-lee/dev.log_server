@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 const { post } = require('../../models');
 const { user } = require('../../models');
+const { category } = require('../../models');
 
 const { member_post } = require('../../models');
 
@@ -19,16 +20,33 @@ module.exports = {
             where: {
               id: id,
             },
-            attributes: ['username'],
+            attributes: [],
           },
           {
             model: post,
-            attributes: ['id', 'title'],
+            attributes: ['id', 'title', 'viewCount'],
+            include: [
+              {
+                model: user,
+                as: 'author',
+                attributes: [['username', 'taggedUser'], 'createdAt'],
+              },
+              {
+                model: category,
+                attributes: ['title'],
+              },
+            ],
           },
         ],
+        attributes: {
+          exclude: ['id', 'memberId', 'postId'],
+        },
       })
       .then((result) => {
-        res.send(result);
+        res.status(200).send(result);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
       });
   },
 };

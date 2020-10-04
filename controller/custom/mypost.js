@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const { post } = require('../../models');
+const { category } = require('../../models');
 const Sequelize = require('sequelize');
 
 module.exports = {
@@ -29,7 +30,14 @@ module.exports = {
               ),
               'commentCount',
             ],
+            [
+              Sequelize.literal(
+                `(SELECT title FROM categories where categories.id = post.categoryId)`
+              ),
+              'category',
+            ],
           ],
+          exclude: ['updatedAt', 'authorId', 'categoryId'],
         },
       })
       .then((result) => {
