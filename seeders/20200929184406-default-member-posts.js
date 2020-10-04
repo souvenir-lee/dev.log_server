@@ -31,7 +31,7 @@ module.exports = {
           memberId: 1,
         },
         {
-          posetId: 4,
+          postId: 4,
           memberId: 4,
         },
         {
