@@ -61,33 +61,56 @@ module.exports = {
     };
     if (email) {
       post
-        .update(updatedPost, {
-          //posts.id가 넘겨받은 id(수정하는 게시글의 id)인 게시글을 update
+        .findOne({
           where: {
             id: id,
           },
         })
-        .then(() => {
-          if (tags.length !== 0) {
-            //만약 tag를 1개이상 달았다면
-            if (deletePostTag(id)) {
-              //해당 게시글의 tag정보를 post_tags 테이블에서 제거 후
-              insertTag(tags, id); //새롭게 전달받은 tag로 insert
-            } else {
-              res.status(400).send('Invalid Request');
-            }
-          }
-          if (names.length !== 0) {
-            //만약 멤버를 1명이상 달았다면
-            if (deleteMemberPost(id)) {
-              //해당 게시글의 멤버정보를 member_posts 테이블에서 제거 후
-              insertMemberPost(names, id); //새롭게 전달받은 names(멤버들)로 insert
-            } else {
-              res.status(400).send('Invalid Request');
-            }
-          }
-          //응답
-          res.status(200).send('success to update post');
+        .then((findPost) => {
+          user
+            .findOne({
+              where: {
+                id: findPost.dataValues.authorId,
+              },
+            })
+            .then((findUser) => {
+              if (findUser.dataValues.email === email) {
+                post
+                  .update(updatedPost, {
+                    //posts.id가 넘겨받은 id(수정하는 게시글의 id)인 게시글을 update
+                    where: {
+                      id: id,
+                    },
+                  })
+                  .then(() => {
+                    if (tags.length !== 0) {
+                      //만약 tag를 1개이상 달았다면
+                      if (deletePostTag(id)) {
+                        //해당 게시글의 tag정보를 post_tags 테이블에서 제거 후
+                        insertTag(tags, id); //새롭게 전달받은 tag로 insert
+                      } else {
+                        res.status(400).send('Invalid Request');
+                      }
+                    }
+                    if (names.length !== 0) {
+                      //만약 멤버를 1명이상 달았다면
+                      if (deleteMemberPost(id)) {
+                        //해당 게시글의 멤버정보를 member_posts 테이블에서 제거 후
+                        insertMemberPost(names, id); //새롭게 전달받은 names(멤버들)로 insert
+                      } else {
+                        res.status(400).send('Invalid Request');
+                      }
+                    }
+                    //응답
+                    res.status(200).send('success to update post');
+                  })
+                  .catch((e) => {
+                    res.sendStatus(500);
+                  });
+              } else {
+                res.status(400).send('Invalid Request');
+              }
+            });
         })
         .catch((e) => {
           res.sendStatus(500);
