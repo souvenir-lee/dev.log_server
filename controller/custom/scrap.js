@@ -21,7 +21,7 @@ module.exports = {
           },
           {
             model: post,
-            attributes: ['title', 'message', 'createdAt', 'viewcount'],
+            attributes: ['title', 'message', 'createdAt', 'viewCount'],
             include: [
               {
                 model: category,
