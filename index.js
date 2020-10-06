@@ -40,7 +40,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ['http://localhost:3000'],
+    origin: [
+      'http://devyeon.com',
+      'https://devyeon.com',
+      'http://codeto.xyz',
+      'https://codeto.xyz',
+      'http://localhost:3000',
+    ],
     method: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: [
       'Origin',
@@ -50,7 +56,6 @@ app.use(
       'Authorization',
     ],
     credentials: true,
-    // preflightContinue: true,
   })
 );
 
@@ -66,10 +71,6 @@ app.get('/health', (req, res) => {
   console.log('Time:', Date());
   res.status(299).send('health check');
 });
-
-// app.get('/', (req, res) => {
-//   res.status(200).send('Success');
-// });
 
 app.listen(port, () => {
   console.log(`server listening on ${port}`);
