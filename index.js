@@ -45,6 +45,7 @@ app.use(
       'https://devyeon.com',
       'http://codeto.xyz',
       'https://codeto.xyz',
+      'http://localhost:3000',
     ],
     method: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: [
