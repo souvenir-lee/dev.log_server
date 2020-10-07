@@ -31,13 +31,14 @@ Back - end : 윤 연, 김종환
 
   ```jsx
   GITHUB_REDIRECT_URI= [ ... ] /socials/ghcallback
+  NAVER_REDIRECT_URI= [ ... ] /socials/nvcallback
   ```  
 - ***로컬의 localhost:4000 ngrok https 주소***를 넣어주시면 됩니다.  
 
   → 터미널 하나를 새로 켜서 `ngrok http 4000` 실행 → https 주소값 복사해서 env에 작성  
 
   → ***터미널을 끄면 해당 주소가 무효화되므로 테스트를 진행하는 동안 ngrok 실행 터미널을 끄지 않는 것을 추천합니다.***
-- github → settings → developer settings로 이동(아래의 링크) → OAuth Apps 선택
+- GitHub → settings → developer settings로 이동(아래의 링크) → OAuth Apps 선택
   [https://github.com/settings/apps](https://github.com/settings/apps)
 
   1. 새로운 App을 하나 만들거나 기존에 임시로 사용하던 App을 하나 선택합니다.
@@ -51,8 +52,21 @@ Back - end : 윤 연, 김종환
   3. Homepage URL로 위의 `ngrok http 4000` 주소를 입력합니다.
   4. Authorization callback URL로 `ngrok http 4000 + socials/ghcallback` 을 입력합니다(즉 GITHUB_REDIRECT_URI 환경 변수로 지정되는 주소와 일치해야 합니다).
 
+- Naver developers → Application로 이동 → 애플리케이션 등록 선택
+[https://developers.naver.com/apps/#/register](https://developers.naver.com/apps/#/register)
 
-index.js에 자동으로 연결되어 있으므로 이제 서버 실행이 가능합니다.
+  1. 새로운 App을 하나 만들거나 기존에 임시로 사용하던 App을 하나 선택합니다.
+  2. Client ID와 Client Secret을 각각 복사하여 아래에 복사, 붙여넣기합니다.
+
+      ```jsx
+      NAVER_CLIENT_ID=
+      NAVER_CLIENT_SECRET=
+      ```
+
+  3. Homepage URL로 위의 `ngrok http 4000` 주소를 입력합니다.
+  4. Authorization callback URL로 `ngrok http 4000 + socials/nvcallback` 을 입력합니다(즉 NAVER_REDIRECT_URI 환경 변수로 지정되는 주소와 일치해야 합니다).
+
+.env 파일이 index.js에 자동으로 연결되어 있으므로 이제 서버 실행이 가능합니다.
 <br/><br/>
 ### Database
 
