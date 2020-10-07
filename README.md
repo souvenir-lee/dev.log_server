@@ -121,9 +121,9 @@ npx sequelize db:seed:all
 
 ## Stack
 
-- 서버 구축 : Express
+- 서버 구축 : Express, JWT
 
-- 데이터베이스 구축 : MySQL, Sequelize-cli
+- 데이터베이스 구축 : MySQL, Sequelize-cli, crypto
 - AWS : EC2, RDS, Cloud9, ALB, Route 53, Certificate Manager, CloudFront, S3
 - Form : eslint, Prettier
    
