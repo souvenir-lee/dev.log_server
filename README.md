@@ -1,7 +1,7 @@
 # dev-log Server
 CodeStates Immersive 22기 3조 knock knock 팀의 First-Project 입니다.
 
-Front - end : 이한슬(팀장), 권수진 / [client 레포](https://github.com/codestates/dev.log-client)  
+Front - end : 이한슬(팀장), 권수진 / [client 레포](https://github.com/souvenir-lee/dev.log_client)  
 Back - end : 윤 연, 김종환   
 
 ## Description
